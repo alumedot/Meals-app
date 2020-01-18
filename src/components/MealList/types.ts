@@ -1,11 +1,11 @@
+import { IMeal } from 'data/types';
 import { NavigationStackProp } from 'react-navigation-stack';
 
 export interface IParams {
-  mealTitle: string;
-  mealId: string;
-  toggleFav(): void;
+  categoryId: string;
 }
 
 export interface IProps {
+  listData: IMeal[];
   navigation: NavigationStackProp<IParams>;
 }

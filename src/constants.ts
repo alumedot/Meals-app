@@ -6,4 +6,5 @@ export enum Fonts {
 export enum Colors {
   PrimaryColor = '#4a148c',
   AccentColor = '#ff6f00',
+  VeganColor = '#00ffc5',
 }

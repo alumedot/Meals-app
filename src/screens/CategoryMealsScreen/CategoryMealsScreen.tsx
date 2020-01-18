@@ -1,51 +1,25 @@
 import React from 'react';
-import { View, FlatList, StyleSheet, ListRenderItemInfo } from 'react-native';
+import { useSelector } from 'react-redux';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 
 import { IProps, IParams } from './types';
-import { IMeal} from 'data/types';
-import { Categories, Meals } from 'data/dummy-data';
+import { Categories } from 'data/dummy-data';
 
-import { Routes } from 'navigation/constants';
-import MealItem from 'components/MealItem';
-
+import MealList from 'components/MealList';
+import { IRootReduxState } from 'store/types';
 
 const CategoryMealScreen = (props: IProps) => {
   const catId = props.navigation.getParam('categoryId');
 
-  const displayedMeals = Meals.filter(meal => meal.categoryIds.find(id => id === catId));
+  const availableMeals = useSelector((state: IRootReduxState) => state.meals.filteredMeals);
 
-  const renderMealItem = (itemData: ListRenderItemInfo<IMeal>) => {
-    const {duration, title, affordability, complexity, imageUrl} = itemData.item;
-
-    return (
-      <MealItem
-        imageUrl={imageUrl}
-        complexity={complexity}
-        affordability={affordability}
-        duration={duration}
-        title={title}
-        onSelectMeal={() => {
-          props.navigation.navigate(
-            Routes.MealDetail,
-            {
-              mealId: itemData.item.id,
-            }
-          )
-        }}
-      />
-    );
-  };
+  const displayedMeals = availableMeals.filter(meal => meal.categoryIds.find(id => id === catId));
 
   return (
-    <View style={styles.screen}>
-      <FlatList
-        data={displayedMeals}
-        keyExtractor={(item, index) => item.id}
-        renderItem={renderMealItem}
-        style={{width: '100%'}}
-      />
-    </View>
+    <MealList
+      listData={displayedMeals}
+      navigation={props.navigation}
+    />
   )
 };
 
@@ -57,14 +31,5 @@ CategoryMealScreen.navigationOptions = (navigationData: NavigationStackScreenPro
     headerTitle: selectedCategory!.title,
   }
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 15,
-  }
-});
 
 export default CategoryMealScreen;

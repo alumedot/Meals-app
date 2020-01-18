@@ -6,6 +6,7 @@ export class Meal {
   complexity: string;
   imageUrl: string;
   duration: number;
+  ingredients: string[];
   steps: string[];
   isGlutenFree: boolean;
   isVegan: boolean;
@@ -34,6 +35,7 @@ export class Meal {
     this.complexity = complexity;
     this.imageUrl = imageUrl;
     this.duration = duration;
+    this.ingredients = ingredients;
     this.steps = steps;
     this.isGlutenFree = isGlutenFree;
     this.isVegan = isVegan;

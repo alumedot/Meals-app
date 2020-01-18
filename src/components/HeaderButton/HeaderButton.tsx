@@ -9,7 +9,6 @@ import { IProps } from './types';
 
 
 const CustomHeaderButton = (props: IProps) => {
-  console.log(props);
   return <HeaderButton
     {...props}
     IconComponent={Ionicons}

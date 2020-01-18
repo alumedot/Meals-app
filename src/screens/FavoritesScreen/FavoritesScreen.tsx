@@ -1,23 +1,27 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
+import MealList from 'components/MealList';
 
-const FavoritesScreen = (props) => {
-    return (
-        <View style={styles.screen}>
-            <Text>
-                The FavoritesScreen Screen!
-            </Text>
-        </View>
-    )
+import { IProps } from './types';
+import { NavigationStackScreenProps } from 'react-navigation-stack';
+
+import { screenHeader } from 'components/helpers/screenHeader';
+import { IRootReduxState } from 'store/types';
+
+const FavoritesScreen = (props: IProps) => {
+  const favMeals = useSelector(({ meals }: IRootReduxState) => meals.favoriteMeals);
+
+  return (
+    <MealList
+      listData={favMeals}
+      navigation={props.navigation}
+    />
+  )
 };
 
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
-});
+FavoritesScreen.navigationOptions = (navigationData: NavigationStackScreenProps) => (
+  screenHeader(navigationData, 'Your Favorites')
+);
 
 export default FavoritesScreen;

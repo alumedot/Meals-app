@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react
 
 import { Fonts } from 'constants';
 
+import DefaultText from 'components/DefaultText';
+
 import { IProps } from './types';
 
 
@@ -11,7 +13,7 @@ const MealItem = (props: IProps) => {
     <View style={styles.mealItem}>
       <TouchableOpacity activeOpacity={0.7} onPress={props.onSelectMeal}>
         <View>
-          <View style={{...styles.melRow, ...styles.mealHeader}}>
+          <View style={{...styles.mealRow, ...styles.mealHeader}}>
             <ImageBackground
               source={{uri: props.imageUrl}}
               style={styles.bgImage}
@@ -23,16 +25,16 @@ const MealItem = (props: IProps) => {
               </View>
             </ImageBackground>
           </View>
-          <View style={{...styles.melRow, ...styles.mealDetail}}>
-            <Text>
+          <View style={{...styles.mealRow, ...styles.mealDetail}}>
+            <DefaultText>
               {props.duration}
-            </Text>
-            <Text>
+            </DefaultText>
+            <DefaultText>
               {props.complexity.toUpperCase()}
-            </Text>
-            <Text>
+            </DefaultText>
+            <DefaultText>
               {props.affordability.toUpperCase()}
-            </Text>
+            </DefaultText>
           </View>
         </View>
       </TouchableOpacity>
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     overflow: 'hidden',
   },
-  melRow: {
+  mealRow: {
     flexDirection: 'row',
   },
   mealHeader: {
