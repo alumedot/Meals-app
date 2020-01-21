@@ -1,5 +1,7 @@
 import { IMeal } from 'data/types';
 import { ActionTypes } from './ActionTypes';
+import { IFilters } from './instance';
+
 
 export interface IReduxStore {
   meals: IMeal[],
@@ -12,5 +14,11 @@ export interface IToggleFavorite {
   mealId: string;
 }
 
+export interface ISetFilters {
+  type: ActionTypes.SetFilters;
+  filters: IFilters;
+}
+
 export type IAction =
-  IToggleFavorite;
+  IToggleFavorite |
+  ISetFilters;

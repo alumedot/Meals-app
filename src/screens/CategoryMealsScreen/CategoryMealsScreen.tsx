@@ -1,12 +1,16 @@
 import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 
-import { IProps, IParams } from './types';
 import { Categories } from 'data/dummy-data';
+import { IRootReduxState } from 'store/types';
 
 import MealList from 'components/MealList';
-import { IRootReduxState } from 'store/types';
+import DefaultText from 'components/DefaultText';
+
+import { IProps, IParams } from './types';
+
 
 const CategoryMealScreen = (props: IProps) => {
   const catId = props.navigation.getParam('categoryId');
@@ -16,10 +20,16 @@ const CategoryMealScreen = (props: IProps) => {
   const displayedMeals = availableMeals.filter(meal => meal.categoryIds.find(id => id === catId));
 
   return (
-    <MealList
-      listData={displayedMeals}
-      navigation={props.navigation}
-    />
+    displayedMeals.length === 0 ? (
+      <View style={styles.content}>
+        <DefaultText>No meals found, check your filters</DefaultText>
+      </View>
+    ) : (
+      <MealList
+        listData={displayedMeals}
+        navigation={props.navigation}
+      />
+    )
   )
 };
 
@@ -31,5 +41,13 @@ CategoryMealScreen.navigationOptions = (navigationData: NavigationStackScreenPro
     headerTitle: selectedCategory!.title,
   }
 };
+
+const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+});
 
 export default CategoryMealScreen;
