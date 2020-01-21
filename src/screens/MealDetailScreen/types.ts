@@ -3,9 +3,10 @@ import { NavigationStackProp } from 'react-navigation-stack';
 export interface IParams {
   mealTitle: string;
   mealId: string;
-  toggleFav(): void;
+  isFavorite: boolean;
+  toggleFavorite(): void;
 }
 
 export interface IProps {
-  navigation: NavigationStackProp<IParams>;
+  navigation: NavigationStackProp<{}, IParams>;
 }

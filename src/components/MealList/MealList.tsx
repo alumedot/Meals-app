@@ -1,17 +1,21 @@
 import React from 'react';
 import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { IMeal } from 'data/types';
 import { Routes } from 'navigation/constants';
+import { IRootReduxState } from 'store/types';
 
 import MealItem from '../MealItem';
-
 import { IProps } from './types';
 
 
 const MealList = (props: IProps) => {
+  const favoriteMeals = useSelector(({meals}: IRootReduxState) => meals.favoriteMeals);
+
   const renderMealItem = (itemData: ListRenderItemInfo<IMeal>) => {
     const {duration, title, affordability, complexity, imageUrl} = itemData.item;
+    const isFavorite = favoriteMeals.some(meal => meal.id === itemData.item.id);
 
     return (
       <MealItem
@@ -26,6 +30,7 @@ const MealList = (props: IProps) => {
             {
               mealId: itemData.item.id,
               mealTitle: itemData.item.title,
+              isFavorite,
             }
           )
         }}
